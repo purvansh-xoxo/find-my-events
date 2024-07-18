@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find My Events</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+    }
+    .event-item {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-4 mb-4">Find My Events</h1>
+    <form id="event-form">
+      <div class="mb-3">
+        <label for="eventName" class="form-label">Event Name</label>
+        <input type="text" class="form-control" id="eventName" required>
+      </div>
+      <div class="mb-3">
+        <label for="eventDate" class="form-label">Event Date</label>
+        <input type="date" class="form-control" id="eventDate" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Event</button>
+    </form>
+    <hr>
+    <h2 class="mt-4">Upcoming Events</h2>
+    <ul id="event-list" class="list-group mt-3"></ul>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const eventForm = document.getElementById('event-form');
+      const eventNameInput = document.getElementById('eventName');
+      const eventDateInput = document.getElementById('eventDate');
+      const eventList = document.getElementById('event-list');
+
+      let events = [];
+
+      // Load events from localStorage
+      function loadEvents() {
+        const storedEvents = localStorage.getItem('events');
+        if (storedEvents) {
+          events = JSON.parse(storedEvents);
+          renderEvents();
+        }
+      }
+
+      // Save events to localStorage
+      function saveEvents() {
+        localStorage.setItem('events', JSON.stringify(events));
+      }
+
+      // Render events
+      function renderEvents() {
+        eventList.innerHTML = '';
+        events.forEach((event, index) => {
+          const eventItem = document.createElement('li');
+          eventItem.className = 'list-group-item event-item';
+          eventItem.innerHTML = `
+            <strong>${event.name}</strong> - ${event.date}
+            <button class="btn btn-danger btn-sm float-end" onclick="deleteEvent(${index})">Delete</button>
+          `;
+          eventList.appendChild(eventItem);
+        });
+      }
+
+      // Add event
+      eventForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const eventName = eventNameInput.value;
+        const eventDate = eventDateInput.value;
+
+        if (eventName && eventDate) {
+          events.push({ name: eventName, date: eventDate });
+          saveEvents();
+          renderEvents();
+
+          eventNameInput.value = '';
+          eventDateInput.value = '';
+        }
+      });
+
+      // Delete event
+      window.deleteEvent = (index) => {
+        events.splice(index, 1);
+        saveEvents();
+        renderEvents();
+      }
+
+      loadEvents();
+    });
+  </script>
+</body>
+</html>
