@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Music Festival",
+    "description": "Enjoy live performances from top artists.",
+    "date": "2024-08-10",
+    "location": "Central Park, New York City"
+  },
+  {
+    "title": "Tech Conference",
+    "description": "Explore the latest trends in technology and innovation.",
+    "date": "2024-09-15",
+    "location": "Moscone Center, San Francisco"
+  },
+  {
+    "title": "Food Truck Festival",
+    "description": "Taste a variety of cuisines from local food trucks.",
+    "date": "2024-07-30",
+    "location": "Liberty Park, Chicago"
+  },
+  {
+    "title": "Charity Run",
+    "description": "Participate in a 5K run to support children's education.",
+    "date": "2024-08-05",
+    "location": "Riverside Park, Boston"
+  },
+  {
+    "title": "Art Exhibition",
+    "description": "Discover new artworks by emerging artists.",
+    "date": "2024-08-25",
+    "location": "Art Gallery, Los Angeles"
+  }
+]
